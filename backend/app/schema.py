@@ -1,13 +1,15 @@
-from operator import length_hint
 from typing import Optional
 from ninja import Field, ModelSchema
 from .models import SubscribeModel
 from django.contrib.auth.models import User
+from pydantic.config import BaseConfig
 
 
 class SubscribeSchema(ModelSchema):
 
-    class Config:
+    name: str = Field(..., min_length=1, max_length=16, description="订阅名称")
+
+    class Config(BaseConfig):
         model = SubscribeModel
         model_exclude = ["user"]
 

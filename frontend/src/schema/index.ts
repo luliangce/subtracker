@@ -22,6 +22,15 @@ export interface Subscribe {
   mt: string;
   name: string;
   price: string;
-  renew_period: number;
+  renew_period?: number;
 }
+export type SubscribeCreation = {
+  auto_renew: boolean;
+  begin: Date;
+  end: Date;
+  name: string;
+  price: string;
+  renew_period?: number;
+};
+
 export type Response<T> = Promise<AxiosResponse<R<T>>>;
