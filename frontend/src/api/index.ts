@@ -1,5 +1,6 @@
-import { SubscribeCreation } from "./../schema/index";
 import { Info, Response, Subscribe } from "../schema";
+import { date_to_string } from "../utils";
+import { SubscribeCreation } from "./../schema/index";
 import { cred as globalCred, service } from "./request";
 
 export const info = async (): Response<Info> => {
@@ -26,8 +27,8 @@ export const create_subscribe = async (
 ): Response<Subscribe> => {
   return await service.post("/subscribes", {
     ...data,
-    begin: data.begin?.toISOString().slice(0, 10),
-    end: data.end?.toISOString().slice(0, 10),
+    begin: date_to_string(data.begin),
+    end: date_to_string(data.end),
   });
 };
 export const update_subscribe = async (

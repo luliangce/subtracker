@@ -66,3 +66,18 @@ export const greeting = computed(() => {
 
   return "早上好";
 });
+const paddingLeft = (value: number | string, len = 2) => {
+  if (typeof value === "number") {
+    value = value.toFixed(0);
+  }
+  return value.padStart(2, "0");
+};
+export const date_to_string = (date: Date | undefined | null) => {
+  if (!date) {
+    return null;
+  }
+  const result = `${paddingLeft(date.getFullYear())}-${paddingLeft(
+    date.getMonth() + 1
+  )}-${paddingLeft(date.getDate())}`;
+  return result;
+};

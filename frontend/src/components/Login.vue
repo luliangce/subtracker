@@ -1,15 +1,15 @@
 <script lang="ts" setup>
+import { Toast } from "vant";
+import * as API from "../api";
 import { cred } from "../api/request";
 
-import * as API from "../api";
-import { Toast } from "vant";
-
 defineProps(["show"]);
-const $emit = defineEmits(["update:show"]);
+const $emit = defineEmits(["update:show", "success"]);
 const try_login = async () => {
   try {
     await API.info();
     $emit("update:show", false);
+    $emit("success");
     Toast("登录成功");
     return;
   } catch (e) {

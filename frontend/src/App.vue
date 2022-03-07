@@ -122,7 +122,7 @@ onMounted(() => {
       :subscribe="Editing"
       @success="fetch_data"
     />
-    <login v-model:show="show_login_form" />
+    <login v-model:show="show_login_form" @success="fetch_data" />
   </div>
 </template>
 

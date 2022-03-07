@@ -3,6 +3,7 @@ import { PropType } from "vue";
 import { update_subscribe } from "../api";
 import { Subscribe } from "../schema";
 import { useDatePicker, usePicker } from "../use";
+import { date_to_string } from "../utils";
 const emit = defineEmits(["update:show", "success", "cancel"]);
 const props = defineProps({
   show: {
@@ -24,14 +25,6 @@ const confirm_update = async () => {
   await update_subscribe(props.subscribe);
   emit("success", props.subscribe);
   emit("update:show", false);
-};
-const transform_date_to_string = (date: Date) => {
-  try {
-    return date.toISOString().slice(0, 10);
-  } catch (e) {
-    //原样返回
-    return date;
-  }
 };
 
 const format_period = (day_count: any) => {
@@ -72,15 +65,13 @@ const format_period = (day_count: any) => {
             name="开始时间"
             label="开始时间"
             readonly
-            @click="
-              dt_picker.begin_pick('begin', subscribe.begin, transform_date_to_string)
-            "
+            @click="dt_picker.begin_pick('begin', subscribe.begin, date_to_string)"
           />
           <van-field
             :model-value="subscribe.end"
             name="到期时间"
             label="到期时间"
-            @click="dt_picker.begin_pick('end', subscribe.end, transform_date_to_string)"
+            @click="dt_picker.begin_pick('end', subscribe.end, date_to_string)"
             readonly
           />
           <van-field label="自动续费">
